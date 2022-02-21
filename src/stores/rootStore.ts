@@ -1,15 +1,14 @@
 /**
  * Import all your stores
  */
-import AuthStore from './authStore';
+import RegistrationStore from './registrationStore';
 /**
  * Root Store Class with
  */
 export class RootStore {
-
-    authStore: AuthStore;
+    registrationStore: RegistrationStore;
 
     constructor() {
-        this.authStore = new AuthStore();
+        this.registrationStore = new RegistrationStore();
     }
 }

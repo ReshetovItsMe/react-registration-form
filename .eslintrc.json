@@ -1,0 +1,46 @@
+{
+    "extends": ["airbnb-typescript", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "env": {
+        "browser": true,
+        "jest": true
+    },
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "plugins": ["@typescript-eslint", "prettier", "react-hooks", "react", "import"],
+    "rules": {
+        "prettier/prettier": ["error"],
+        "no-duplicate-imports": "error",
+        "no-console": "error",
+        "class-methods-use-this": "off",
+        "no-return-assign": ["error", "except-parens"],
+        "@typescript-eslint/no-unused-expressions": [
+            "error",
+            { "allowShortCircuit": true, "allowTernary": true }
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/prefer-stateless-function": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-indent": "off",
+        "import/prefer-default-export": "off",
+        "react/jsx-wrap-multilines": "off",
+        "react/forbid-prop-types": "off",
+        "react/jsx-indent-props": "off",
+        "react/jsx-curly-newline": "off",
+        "react/jsx-one-expression-per-line": "off",
+        "react/require-default-props": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/jsx-no-bind": "error",
+        "spaced-comment": ["error", "always", { "markers": ["/"] }],
+        "react/prop-types": "off",
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/quotes": "off",
+        "no-underscore-dangle": "off",
+        "import/no-anonymous-default-export": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": "off"
+    }
+}

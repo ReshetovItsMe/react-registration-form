@@ -1,6 +1,3 @@
-import UserService from './userService';
-import SessionService from './sessionService';
-import AuthService from './authService';
-import AudioService from './audioService';
+import RegistrationService from './registrationService';
 
-export { UserService, SessionService, AuthService, AudioService };
+export { RegistrationService };

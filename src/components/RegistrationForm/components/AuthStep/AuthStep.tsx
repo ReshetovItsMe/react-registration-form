@@ -4,6 +4,7 @@ import { ValidateStatus } from 'antd/lib/form/FormItem';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import useStores from '../../../../hooks/useStores';
+import messages from './messages';
 
 const AuthStep = () => {
     const { registrationStore } = useStores();
@@ -102,6 +103,11 @@ const AuthStep = () => {
             <Form.Item
                 label="Email"
                 name="email"
+                help={
+                    emailValidationStatus === 'error'
+                        ? messages.EMAIL_VALIDATION
+                        : undefined
+                }
                 initialValue={toJS(registrationStore.userData.email)}
                 validateStatus={emailValidationStatus}
             >
@@ -111,6 +117,11 @@ const AuthStep = () => {
             <Form.Item
                 label="Password"
                 name="password"
+                help={
+                    passwordValidationStatus === 'error'
+                        ? messages.PASSWORD_VALIDATION
+                        : undefined
+                }
                 validateStatus={passwordValidationStatus}
                 initialValue={toJS(registrationStore.userData.password)}
             >
@@ -119,6 +130,11 @@ const AuthStep = () => {
             <Form.Item
                 label="Сonfirm password"
                 name="confirmation"
+                help={
+                    confirmPasswordValidationStatus === 'error'
+                        ? messages.CONFIRM_PASSWORD
+                        : undefined
+                }
                 validateStatus={confirmPasswordValidationStatus}
                 getValueFromEvent={clearOnPrev}
             >

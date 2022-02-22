@@ -4,6 +4,7 @@ import { ValidateStatus } from 'antd/lib/form/FormItem';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import useStores from '../../../../hooks/useStores';
+import messages from './messages';
 
 const MAX_ADDITIONAL_INFO_SYMBOLS = 512;
 
@@ -68,6 +69,11 @@ const PersonalDataStep = () => {
                 label="Name"
                 name="name"
                 initialValue={toJS(registrationStore.userData.name)}
+                help={
+                    nameValidationStatus === 'error'
+                        ? messages.NAME_VALIDATION
+                        : undefined
+                }
                 validateStatus={nameValidationStatus}
             >
                 <Input onChange={nameHandler} />
@@ -77,6 +83,11 @@ const PersonalDataStep = () => {
                 label="Birth Day"
                 name="birthDay"
                 initialValue={toJS(registrationStore.userData.birthDay)}
+                help={
+                    birthDayValidationStatus === 'error'
+                        ? messages.DATE_VALIDATION
+                        : undefined
+                }
                 validateStatus={birthDayValidationStatus}
             >
                 <DatePicker onChange={birthDayHandler} />

@@ -19,7 +19,7 @@ const FinalStep = () => {
                 </ItemContainer>
                 <ItemContainer>
                     <ItemHeader>Birth day:</ItemHeader>
-                    <td></td>
+                    <td>{userData.birthDay?.format('MMMM DD YYYY')}</td>
                 </ItemContainer>
                 <ItemContainer>
                     <ItemHeader>Additional Information:</ItemHeader>

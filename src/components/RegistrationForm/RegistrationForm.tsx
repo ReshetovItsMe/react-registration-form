@@ -55,7 +55,11 @@ const RegistrationForm = () => {
     return (
         <Layout>
             <Container>
-                <StyledSteps current={currentStep}>
+                <StyledSteps
+                    type="navigation"
+                    size="small"
+                    current={currentStep}
+                >
                     {stepComponents.map((item) => (
                         <Step key={item.title} title={item.title} />
                     ))}
@@ -105,16 +109,21 @@ const Layout = styled.div`
 const Container = styled.div`
     background-color: #c5c5c5;
     border-radius: 5px;
+    box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #fff;
     color: #fff;
     padding: 35px 15px 10px 15px;
+    min-width: 500px;
+    width: 30%;
 `;
 
 const StyledSteps = styled(Steps)`
+    padding-top: 0;
     margin-bottom: 15px;
 `;
 
 const ButtonsContainer = styled(Form.Item)`
     margin-top: 5px;
+    margin-bottom: 0;
     width: 100%;
 
     && .ant-form-item-control-input-content {

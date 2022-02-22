@@ -1,4 +1,4 @@
-# Registration from ReactJS
+# Registration form on ReactJS
 
 Develop a step-by-step registration form in ReactJS, using third-party libraries is allowed. Each next step becomes available when all required fields are filled in.
 

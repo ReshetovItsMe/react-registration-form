@@ -1,63 +1,91 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DatePicker, Form, Input } from 'antd';
+import { ValidateStatus } from 'antd/lib/form/FormItem';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import useStores from '../../../../hooks/useStores';
-import { Moment } from 'moment';
 
 const MAX_ADDITIONAL_INFO_SYMBOLS = 512;
 
 const PersonalDataStep = () => {
     const { registrationStore } = useStores();
-    const { userData } = registrationStore;
+    const [nameValidationStatus, setNameValidationStatus] =
+        useState<ValidateStatus>('validating');
+    const [birthDayValidationStatus, setBirthDayValidationStatus] =
+        useState<ValidateStatus>('validating');
+
+    const checkName = useCallback((value: string) => {
+        const isNotEmpty: boolean = value.length > 0;
+        if (isNotEmpty) {
+            setNameValidationStatus('success');
+        } else {
+            setNameValidationStatus('error');
+        }
+    }, []);
+    const nameHandler = useCallback(
+        (event) => {
+            const value: string = event.target.value;
+            checkName(value);
+        },
+        [checkName],
+    );
+    const birthDayHandler = useCallback((time) => {
+        if (time && time.isBefore(new Date())) {
+            setBirthDayValidationStatus('success');
+        } else {
+            setBirthDayValidationStatus('error');
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!!registrationStore.userData.birthDay) {
+            birthDayHandler(registrationStore.userData.birthDay);
+        }
+        if (!!registrationStore.userData.name) {
+            checkName(registrationStore.userData.name);
+        }
+    }, [
+        birthDayHandler,
+        checkName,
+        registrationStore.userData.birthDay,
+        registrationStore.userData.name,
+    ]);
+
+    useEffect(() => {
+        if (
+            nameValidationStatus === 'success' &&
+            birthDayValidationStatus === 'success'
+        ) {
+            registrationStore.setFieldsValidated(true);
+        } else {
+            registrationStore.setFieldsValidated(false);
+        }
+    }, [birthDayValidationStatus, nameValidationStatus, registrationStore]);
+
     return (
         <>
             <Form.Item
                 label="Name"
                 name="name"
-                initialValue={toJS(userData.name)}
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your Name!',
-                    },
-                ]}
+                initialValue={toJS(registrationStore.userData.name)}
+                validateStatus={nameValidationStatus}
             >
-                <Input />
+                <Input onChange={nameHandler} />
             </Form.Item>
 
             <Form.Item
                 label="Birth Day"
                 name="birthDay"
-                initialValue={toJS(userData.birthDay)}
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your Birth Day!',
-                    },
-                    {
-                        validator: (_, value: Moment) =>
-                            value && value.isBefore(new Date())
-                                ? Promise.resolve()
-                                : Promise.reject(
-                                      new Error('Should be before today'),
-                                  ),
-                    },
-                ]}
+                initialValue={toJS(registrationStore.userData.birthDay)}
+                validateStatus={birthDayValidationStatus}
             >
-                <DatePicker />
+                <DatePicker onChange={birthDayHandler} />
             </Form.Item>
 
             <Form.Item
                 label="Additional Info"
                 name="additionalInfo"
-                initialValue={toJS(userData.additionalInfo)}
-                rules={[
-                    {
-                        max: MAX_ADDITIONAL_INFO_SYMBOLS,
-                        message: `No more than ${MAX_ADDITIONAL_INFO_SYMBOLS} characters`,
-                    },
-                ]}
+                initialValue={toJS(registrationStore.userData.additionalInfo)}
             >
                 <Input.TextArea
                     showCount

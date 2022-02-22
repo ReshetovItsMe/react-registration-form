@@ -8,35 +8,43 @@ const FinalStep = () => {
     const { userData } = registrationStore;
     return (
         <Container>
-            <ItemContainer>
-                <p>Name:</p>
-                <p>{userData.name}</p>
-            </ItemContainer>
-            <ItemContainer>
-                <p>Email:</p>
-                <p>{userData.email}</p>
-            </ItemContainer>
-            <ItemContainer>
-                <p>Birth day:</p>
-                <p>{userData.birthDay}</p>
-            </ItemContainer>
-            <ItemContainer>
-                <p>Additional Information:</p>
-                <p>{userData.additionalInfo}</p>
-            </ItemContainer>
+            <tbody>
+                <ItemContainer>
+                    <ItemHeader>Name:</ItemHeader>
+                    <td>{userData.name}</td>
+                </ItemContainer>
+                <ItemContainer>
+                    <ItemHeader>Email:</ItemHeader>
+                    <td>{userData.email}</td>
+                </ItemContainer>
+                <ItemContainer>
+                    <ItemHeader>Birth day:</ItemHeader>
+                    <td></td>
+                </ItemContainer>
+                <ItemContainer>
+                    <ItemHeader>Additional Information:</ItemHeader>
+                    <td>
+                        {!!userData.additionalInfo
+                            ? userData.additionalInfo
+                            : '<empty>'}
+                    </td>
+                </ItemContainer>
+            </tbody>
         </Container>
     );
 };
 
-const Container = styled.div`
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+const Container = styled.table`
+    table-layout: auto;
+    width: 100%;
 `;
 
-const ItemContainer = styled.div`
-    display: flex;
+const ItemContainer = styled.tr`
+    font-size: 16px;
+`;
+
+const ItemHeader = styled.td`
+    font-weight: bold;
 `;
 
 export default observer(FinalStep);

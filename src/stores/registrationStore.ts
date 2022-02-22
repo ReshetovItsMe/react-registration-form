@@ -15,11 +15,17 @@ export default class RegistrationStore {
 
     userData: Partial<IUser> = {};
 
+    isFieldsValidated: boolean = false;
+
     error: any;
 
     constructor() {
         this.registrationService = RegistrationService;
         makeAutoObservable(this);
+    }
+
+    setFieldsValidated(value: boolean): void {
+        this.isFieldsValidated = value;
     }
 
     updateUserData(property: string, value: any): void {

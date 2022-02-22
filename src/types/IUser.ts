@@ -5,7 +5,7 @@ interface IUser {
     email: string;
     password: string;
     birthDay: Moment;
-    additionalInfo: string;
+    additionalInfo?: string;
 }
 
 export default IUser;

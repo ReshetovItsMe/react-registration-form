@@ -41,7 +41,7 @@ const RegistrationForm = () => {
     const onValuesChange = useCallback(
         (changedValues: any) => {
             const property: string = Object.keys(changedValues)[0];
-            if (!(property === 'confirm_password')) {
+            if (!(property === 'confirmation')) {
                 const value: any = changedValues[property];
                 registrationStore.updateUserData(property, value);
             }
@@ -76,7 +76,10 @@ const RegistrationForm = () => {
                         <NavButtonsContainer>
                             <Button onClick={prev}>Back</Button>
                             <Button
-                                disabled={isLastStep}
+                                disabled={
+                                    isLastStep ||
+                                    !registrationStore.isFieldsValidated
+                                }
                                 type="primary"
                                 onClick={next}
                             >
@@ -85,7 +88,11 @@ const RegistrationForm = () => {
                         </NavButtonsContainer>
 
                         {isLastStep && (
-                            <Button type="primary" htmlType="submit">
+                            <Button
+                                disabled={!registrationStore.isFieldsValidated}
+                                type="primary"
+                                htmlType="submit"
+                            >
                                 Submit
                             </Button>
                         )}
@@ -122,7 +129,7 @@ const StyledSteps = styled(Steps)`
 `;
 
 const ButtonsContainer = styled(Form.Item)`
-    margin-top: 5px;
+    margin-top: 15px;
     margin-bottom: 0;
     width: 100%;
 

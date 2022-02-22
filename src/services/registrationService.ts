@@ -5,10 +5,10 @@ export interface IRegistrationService {
 }
 
 class RegistrationService implements IRegistrationService {
-    registerUser(user: IUser) {
-        const { name } = user;
-        // eslint-disable-next-line no-console
-        console.log(`user with name ${name} registered`);
+    registerUser(user: IUser): Promise<IUser> {
+        return new Promise<IUser>((resolve) => {
+            resolve(user);
+        });
     }
 }
 

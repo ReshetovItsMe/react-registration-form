@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { RegistrationService } from '../services';
 import IUser from '../types/IUser';
+import openNotificationWithIcon from '../utils/notificationWorker';
 
 function hasKey<T, K extends keyof T>(
     obj: Partial<T>,
@@ -25,8 +26,23 @@ export default class RegistrationStore {
         this.userData = { ...this.userData, [property]: value };
     }
 
-    registerUser(): void {
-        this.registrationService.registerUser(this.userData as IUser);
+    async registerUser(): Promise<void> {
+        if (this.isUserDataHasAllFields) {
+            const newUser = await this.registrationService.registerUser(
+                this.userData as IUser,
+            );
+            openNotificationWithIcon(
+                'success',
+                'User created',
+                `New user with name ${newUser.name} has been created`,
+            );
+        } else {
+            openNotificationWithIcon(
+                'error',
+                'User is empty',
+                'Please fill all fields',
+            );
+        }
     }
 
     get isUserDataHasAllFields(): boolean {

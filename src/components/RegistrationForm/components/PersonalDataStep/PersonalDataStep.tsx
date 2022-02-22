@@ -3,8 +3,10 @@ import { DatePicker, Form, Input } from 'antd';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import useStores from '../../../../hooks/useStores';
+import { Moment } from 'moment';
 
 const MAX_ADDITIONAL_INFO_SYMBOLS = 512;
+
 const PersonalDataStep = () => {
     const { registrationStore } = useStores();
     const { userData } = registrationStore;
@@ -32,6 +34,14 @@ const PersonalDataStep = () => {
                     {
                         required: true,
                         message: 'Please input your Birth Day!',
+                    },
+                    {
+                        validator: (_, value: Moment) =>
+                            value && value.isBefore(new Date())
+                                ? Promise.resolve()
+                                : Promise.reject(
+                                      new Error('Should be before today'),
+                                  ),
                     },
                 ]}
             >

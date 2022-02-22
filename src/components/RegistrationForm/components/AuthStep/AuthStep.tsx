@@ -12,19 +12,18 @@ const AuthStep = () => {
         confirmPasswordValidationStatus,
         setConfirmPasswordValidationStatus,
     ] = useState<ValidateStatus>('validating');
-    const confirmPasswordValidationStatusHandler = useCallback(
+    const confirmPasswordHandler = useCallback(
         (event) => {
             const value: string = event.target.value;
             if (value === userData.password) {
                 setConfirmPasswordValidationStatus('success');
-            } else if (value.length > 0) {
-                setConfirmPasswordValidationStatus('error');
             } else {
-                setConfirmPasswordValidationStatus('validating');
+                setConfirmPasswordValidationStatus('error');
             }
         },
         [userData.password],
     );
+
     return (
         <>
             <Form.Item
@@ -69,9 +68,7 @@ const AuthStep = () => {
                     },
                 ]}
             >
-                <Input.Password
-                    onChange={confirmPasswordValidationStatusHandler}
-                />
+                <Input.Password onChange={confirmPasswordHandler} />
             </Form.Item>
         </>
     );

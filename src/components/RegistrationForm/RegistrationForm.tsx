@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Button, Form, Steps } from 'antd';
+import { Button, Form, notification, Steps } from 'antd';
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import AuthStep from './components/AuthStep';
@@ -23,6 +23,17 @@ const stepComponents = [
         content: <FinalStep />,
     },
 ];
+
+const openNotificationWithIcon = (
+    type: 'success' | 'error',
+    title: string,
+    description: string,
+) => {
+    notification[type]({
+        message: title,
+        description,
+    });
+};
 
 const RegistrationForm = () => {
     const { registrationStore } = useStores();
@@ -49,7 +60,15 @@ const RegistrationForm = () => {
         [registrationStore],
     );
     const onSubmit = useCallback(() => {
-        registrationStore.registerUser();
+        if (registrationStore.isUserDataHasAllFields) {
+            registrationStore.registerUser();
+        } else {
+            openNotificationWithIcon(
+                'error',
+                'User empty',
+                'Please fill all fields',
+            );
+        }
     }, [registrationStore]);
 
     return (

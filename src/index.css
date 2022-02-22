@@ -1,0 +1,12 @@
+@import '~antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Roboto+Mono|Work+Sans:400,600&display=swap');
+
+body {
+    margin: 0;
+    font-size: 30px;
+    font-family: "Work Sans", sans-serif;
+}
+
+#root {
+    height: 100vh;
+}

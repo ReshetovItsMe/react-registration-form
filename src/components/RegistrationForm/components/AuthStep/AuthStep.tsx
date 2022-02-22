@@ -6,6 +6,10 @@ import { observer } from 'mobx-react-lite';
 import useStores from '../../../../hooks/useStores';
 import messages from './messages';
 
+export const PASSWORD_FIELD_ID = 'password';
+export const CONFIRM_PASSWORD_FIELD_ID = 'confirmation';
+export const EMAIL_FIELD_ID = 'email';
+
 const AuthStep = () => {
     const { registrationStore } = useStores();
     const [
@@ -102,7 +106,7 @@ const AuthStep = () => {
         <>
             <Form.Item
                 label="Email"
-                name="email"
+                name={EMAIL_FIELD_ID}
                 help={
                     emailValidationStatus === 'error'
                         ? messages.EMAIL_VALIDATION
@@ -116,7 +120,7 @@ const AuthStep = () => {
 
             <Form.Item
                 label="Password"
-                name="password"
+                name={PASSWORD_FIELD_ID}
                 help={
                     passwordValidationStatus === 'error'
                         ? messages.PASSWORD_VALIDATION
@@ -129,7 +133,7 @@ const AuthStep = () => {
             </Form.Item>
             <Form.Item
                 label="Сonfirm password"
-                name="confirmation"
+                name={CONFIRM_PASSWORD_FIELD_ID}
                 help={
                     confirmPasswordValidationStatus === 'error'
                         ? messages.CONFIRM_PASSWORD

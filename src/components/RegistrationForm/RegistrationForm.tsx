@@ -6,6 +6,7 @@ import AuthStep from './components/AuthStep';
 import PersonalDataStep from './components/PersonalDataStep';
 import FinalStep from './components/FinalStep';
 import useStores from '../../hooks/useStores';
+import { CONFIRM_PASSWORD_FIELD_ID } from './components/AuthStep/AuthStep';
 
 const { Step } = Steps;
 
@@ -41,7 +42,7 @@ const RegistrationForm = () => {
     const onValuesChange = useCallback(
         (changedValues: any) => {
             const property: string = Object.keys(changedValues)[0];
-            if (!(property === 'confirmation')) {
+            if (!(property === CONFIRM_PASSWORD_FIELD_ID)) {
                 const value: any = changedValues[property];
                 registrationStore.updateUserData(property, value);
             }

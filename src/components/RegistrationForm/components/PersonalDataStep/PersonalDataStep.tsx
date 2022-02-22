@@ -7,6 +7,9 @@ import useStores from '../../../../hooks/useStores';
 import messages from './messages';
 
 const MAX_ADDITIONAL_INFO_SYMBOLS = 512;
+export const NAME_FIELD_ID = 'password';
+export const BIRTH_DAY_FIELD_ID = 'confirmation';
+export const ADDITIONAL_INFO_FIELD_ID = 'email';
 
 const PersonalDataStep = () => {
     const { registrationStore } = useStores();
@@ -67,7 +70,7 @@ const PersonalDataStep = () => {
         <>
             <Form.Item
                 label="Name"
-                name="name"
+                name={NAME_FIELD_ID}
                 initialValue={toJS(registrationStore.userData.name)}
                 help={
                     nameValidationStatus === 'error'
@@ -81,7 +84,7 @@ const PersonalDataStep = () => {
 
             <Form.Item
                 label="Birth Day"
-                name="birthDay"
+                name={BIRTH_DAY_FIELD_ID}
                 initialValue={toJS(registrationStore.userData.birthDay)}
                 help={
                     birthDayValidationStatus === 'error'
@@ -95,7 +98,7 @@ const PersonalDataStep = () => {
 
             <Form.Item
                 label="Additional Info"
-                name="additionalInfo"
+                name={ADDITIONAL_INFO_FIELD_ID}
                 initialValue={toJS(registrationStore.userData.additionalInfo)}
             >
                 <Input.TextArea
